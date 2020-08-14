@@ -1,0 +1,40 @@
+server:
+  port: 8001
+
+#mybatis配置
+mybatis:
+  type-aliases-package: com.cola.springcloud.pojo
+  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mybatis/mapper/*.xml
+
+#spring配置
+spring:
+  application:
+    name: springcloud-provider-dept
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource    #数据源
+    driver-class-name: org.gjt.mm.mysql.Driver    #MySQL驱动
+    url: jdbc:mysql://localhost:3306/springcloud1?useUnicode=true&characterEncoding=utf-8&UseSSL=true #数据库名称
+    username: root
+    password: admin
+    dbcp2:
+      min-idle: 5     #数据库连接池的最小维持连接数
+      initial-size: 5 #初始化连接数
+      max-total: 5    #最大连接数
+      max-wait-millis: 200  #等待连接获取的最大超时时间
+
+#Eureka配置
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka, http://eureka7002:7002/eureka, http://eureka7003:7003/eureka
+  instance:
+    instance-id: springcloud-provider-dept8001 #注意和client平级
+    prefer-ip-address: true #true访问路径可以显示ip地址
+
+#info配置
+info:
+  app.name: cola-springcloud
+  company.name: www.cola.com
+  build.artifactId: ${project.artifactId}
+  build.version: ${project.version}
